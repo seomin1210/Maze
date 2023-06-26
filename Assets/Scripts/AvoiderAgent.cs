@@ -41,9 +41,13 @@ public class AvoiderAgent : Agent
     }
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.collider.CompareTag("ENEMY"))
+        if (collision.collider.CompareTag("WALL"))
         {
-            SetReward(-1.0f);
+            SetReward(-0.1f);
+        }
+        if (collision.collider.CompareTag("Player"))
+        {
+            SetReward(1000f);
             EndEpisode();
         }
     }
