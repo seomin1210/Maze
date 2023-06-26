@@ -11,7 +11,7 @@ public class AvoiderAgent : Agent
     private Rigidbody rb;
 
     [SerializeField]
-    private Enemy[] enemies;
+    private Enemy player;
 
     public override void Initialize()
     {
@@ -32,7 +32,7 @@ public class AvoiderAgent : Agent
         Vector3 dir = (Vector3.forward * v) + (Vector3.right * h);
         rb.AddForce(dir.normalized * 50.0f);
 
-        SetReward(-0.001f);
+        SetReward(0.0001f);
     }
     public override void Heuristic(in ActionBuffers actionsOut)
     {
@@ -43,7 +43,7 @@ public class AvoiderAgent : Agent
     {
         if (collision.collider.CompareTag("WALL"))
         {
-            SetReward(-0.1f);
+            SetReward(-1f);
         }
         if (collision.collider.CompareTag("Player"))
         {
@@ -56,12 +56,9 @@ public class AvoiderAgent : Agent
         rb.velocity = Vector3.zero;
         rb.angularVelocity = Vector3.zero;
 
-        tr.localPosition = new Vector3(0f, 1f, 0f);
+        tr.localPosition = new Vector3(-43.5f, 0f, -43f);
 
-        foreach(var enemy in enemies)
-        {
-            enemy.ResetPos();
-        }
+        player.ResetPos();
     }
 }
 
